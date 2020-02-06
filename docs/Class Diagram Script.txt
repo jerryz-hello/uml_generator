@@ -1,0 +1,212 @@
+@startuml
++class Presentation.Main {
++void <init>()
++void main(java.lang.String[] arg0)
+}
++class Domain.MainLogic {
+-java.lang.String "filter"
+-java.lang.String "filename"
+-java.lang.String[] "classNames"
+-boolean "parseExternal"
++void <init>(java.lang.String[] arg0, java.lang.String arg1)
++void run()
+}
++class DataSource.ASMClassDiagramParser {
+-Ljava.util.Queue<Ljava.lang.String;>; "classNames"
+-Ljava.util.List<Ljava.lang.String;>; "visited"
+-Ljava.util.List<LDomain.Entity;>; "entities"
+-Ljava.util.List<LDomain.ClassDiagramArrow;>; "arrows"
+-Ljava.util.ArrayList<LDomain.Visibility;>; "filters"
+-Ljava.util.Set<Ljava.lang.String;>; "supportedArrowTypes"
+-boolean "parseExternal"
++void <init>(java.lang.String arg0, java.util.Set arg1, boolean arg2)
++Domain.Project parse(java.lang.String[] arg0)
+-Domain.Entity entityBuilder(org.objectweb.asm.tree.ClassNode arg0)
+-Domain.Visibility parseVisibility(int arg0)
+}
++interface DataSource.IClassDiagramParser {
++Domain.Project parse(java.lang.String[] arg0)
+}
++class Domain.Project {
++Ljava.util.List<LDomain.Entity;>; "entities"
++Ljava.util.List<LDomain.ClassDiagramArrow;>; "arrows"
++void <init>(java.util.List arg0, java.util.List arg1)
+}
++interface Presentation.IUMLGeneratorBehavior {
++void generate(Domain.Project arg0)
+}
++class Presentation.PlantUMLGenerator {
+-Ljava.util.Map<Ljava.lang.String;Ljava.lang.String;>; "arrowTypes"
+-java.io.OutputStream "target"
+~void <clinit>()
++void <init>(java.lang.String arg0)
+-java.lang.String generateScript(Domain.Project arg0)
++void generate(Domain.Project arg0)
+}
++class Domain.ClassDiagramArrow {
++java.lang.String "cardinalityFrom"
++java.lang.String "cardinalityTo"
++void <init>(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2)
++void <init>(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3)
++void <init>(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, java.lang.String arg4)
++boolean equals(Domain.ClassDiagramArrow arg0)
++boolean isReverse(Domain.ClassDiagramArrow arg0)
+}
++class Domain.Entity {
++java.lang.String "name"
++Domain.EntityType "classType"
++Domain.Visibility "visibility"
++Ljava.util.List<LDomain.Method;>; "methods"
++Ljava.util.List<LDomain.Field;>; "fields"
++void <init>(java.lang.String arg0, Domain.EntityType arg1, java.util.List arg2, java.util.List arg3, Domain.Visibility arg4)
+}
++enum Domain.Visibility {
++Domain.Visibility "DEFAULT"
++Domain.Visibility "PUBLIC"
++Domain.Visibility "PRIVATE"
++Domain.Visibility "PROTECTED"
++java.lang.String "UMLString"
+-Domain.Visibility[] "ENUM$VALUES"
+~void <clinit>()
+-void <init>(java.lang.String arg0, int arg1, java.lang.String arg2)
++Domain.Visibility[] values()
++Domain.Visibility valueOf(java.lang.String arg0)
+}
++class DataSource.ASMAssociationParser {
++void <init>(java.util.Queue arg0, java.util.List arg1, java.util.List arg2, boolean arg3)
++void parse(org.objectweb.asm.tree.ClassNode arg0)
+}
++class DataSource.ASMDependencyParser {
++void <init>(java.util.Queue arg0, java.util.List arg1, java.util.List arg2, boolean arg3)
++void parse(org.objectweb.asm.tree.ClassNode arg0)
+-boolean containAssociation(Domain.ClassDiagramArrow arg0)
+}
++class DataSource.ASMImplementationParser {
++void <init>(java.util.Queue arg0, java.util.List arg1, java.util.List arg2, boolean arg3)
++void parse(org.objectweb.asm.tree.ClassNode arg0)
+}
++class DataSource.ASMInheritanceParser {
++void <init>(java.util.Queue arg0, java.util.List arg1, java.util.List arg2, boolean arg3)
++void parse(org.objectweb.asm.tree.ClassNode arg0)
+}
++abstract class DataSource.IASMRelationshipParser {
+#Ljava.util.Queue<Ljava.lang.String;>; "classNames"
+#Ljava.util.List<LDomain.ClassDiagramArrow;>; "arrows"
+#Ljava.util.List<Ljava.lang.String;>; "visited"
+#boolean "parseExternal"
++void <init>(java.util.Queue arg0, java.util.List arg1, java.util.List arg2, boolean arg3)
++void parse(org.objectweb.asm.tree.ClassNode arg0)
+}
++enum Domain.EntityType {
++Domain.EntityType "CLASS"
++Domain.EntityType "INTERFACE"
++Domain.EntityType "ENUM"
++Domain.EntityType "ABSTRACT"
++java.lang.String "UMLString"
+-Domain.EntityType[] "ENUM$VALUES"
+~void <clinit>()
+-void <init>(java.lang.String arg0, int arg1, java.lang.String arg2)
++Domain.EntityType[] values()
++Domain.EntityType valueOf(java.lang.String arg0)
+}
++class Domain.Field {
++Domain.Visibility "visibility"
++void <init>(java.lang.String arg0, java.lang.String arg1, Domain.Visibility arg2)
+}
++class Domain.Method {
++java.lang.String "name"
++java.lang.String "returnType"
++Domain.Visibility "visibility"
++boolean "isStatic"
++Ljava.util.List<LDomain.Variable;>; "args"
++void <init>(java.lang.String arg0, java.lang.String arg1, Domain.Visibility arg2, boolean arg3, java.util.List arg4)
+}
++class Domain.Variable {
++java.lang.String "name"
++java.lang.String "type"
++void <init>(java.lang.String arg0, java.lang.String arg1)
+}
++abstract class Domain.AbstractArrow {
++java.lang.String "pointFrom"
++java.lang.String "pointTo"
++java.lang.String "type"
++void <init>(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2)
+}
++class DataSource.ASMSignatureVisitor {
+-boolean "nextIsMany"
+-Ljava.util.List<LDataSource.TypeData;>; "types"
++void <init>(int arg0)
++org.objectweb.asm.signature.SignatureVisitor visitArrayType()
++void visitClassType(java.lang.String arg0)
++java.util.List getTypes()
++boolean isCollection(java.lang.String arg0)
+}
++class DataSource.ASMMethodVisitor {
+-Ljava.util.List<Ljava.lang.String;>; "types"
++void <init>(int arg0)
++void visitMethodInsn(int arg0, java.lang.String arg1, java.lang.String arg2, java.lang.String arg3, boolean arg4)
++java.util.List getTypes()
+}
++class DataSource.TypeData {
++java.lang.String "name"
++boolean "isMany"
++void <init>(java.lang.String arg0, boolean arg1)
+}
+Presentation.Main ..> Domain.MainLogic
+Domain.MainLogic ..> DataSource.ASMClassDiagramParser
+Domain.MainLogic ..> DataSource.IClassDiagramParser
+Domain.MainLogic ..> Domain.Project
+Domain.MainLogic ..> Presentation.IUMLGeneratorBehavior
+Domain.MainLogic ..> Presentation.PlantUMLGenerator
+DataSource.ASMClassDiagramParser --> "*" Domain.ClassDiagramArrow
+DataSource.ASMClassDiagramParser --> "*" Domain.Entity
+DataSource.ASMClassDiagramParser --> "*" Domain.Visibility
+DataSource.ASMClassDiagramParser ..> "*" Domain.Project
+DataSource.ASMClassDiagramParser ..> DataSource.ASMAssociationParser
+DataSource.ASMClassDiagramParser ..> DataSource.ASMDependencyParser
+DataSource.ASMClassDiagramParser ..> DataSource.ASMImplementationParser
+DataSource.ASMClassDiagramParser ..> DataSource.ASMInheritanceParser
+DataSource.ASMClassDiagramParser ..> DataSource.IASMRelationshipParser
+DataSource.ASMClassDiagramParser ..> Domain.EntityType
+DataSource.ASMClassDiagramParser ..> Domain.Field
+DataSource.ASMClassDiagramParser ..> Domain.Method
+DataSource.ASMClassDiagramParser ..> Domain.Variable
+DataSource.ASMClassDiagramParser ..|> DataSource.IClassDiagramParser
+DataSource.IClassDiagramParser ..> "*" Domain.Project
+Domain.Project --> "*" Domain.ClassDiagramArrow
+Domain.Project --> "*" Domain.Entity
+Presentation.IUMLGeneratorBehavior ..> "1" Domain.Project
+Presentation.PlantUMLGenerator ..> "2" Domain.Project
+Presentation.PlantUMLGenerator ..|> Presentation.IUMLGeneratorBehavior
+Domain.ClassDiagramArrow ..> Domain.AbstractArrow
+Domain.ClassDiagramArrow --|> Domain.AbstractArrow
+Domain.Entity --> "*" Domain.Field
+Domain.Entity --> "*" Domain.Method
+Domain.Entity --> "1" Domain.Visibility
+Domain.Entity --> "1" Domain.EntityType
+Domain.Visibility --> "*" Domain.Visibility
+DataSource.ASMAssociationParser ..> DataSource.ASMSignatureVisitor
+DataSource.ASMAssociationParser ..> DataSource.IASMRelationshipParser
+DataSource.ASMAssociationParser ..> Domain.ClassDiagramArrow
+DataSource.ASMAssociationParser --|> DataSource.IASMRelationshipParser
+DataSource.ASMDependencyParser ..> "1" Domain.ClassDiagramArrow
+DataSource.ASMDependencyParser ..> DataSource.ASMMethodVisitor
+DataSource.ASMDependencyParser ..> DataSource.ASMSignatureVisitor
+DataSource.ASMDependencyParser ..> DataSource.IASMRelationshipParser
+DataSource.ASMDependencyParser --|> DataSource.IASMRelationshipParser
+DataSource.ASMImplementationParser ..> DataSource.IASMRelationshipParser
+DataSource.ASMImplementationParser ..> Domain.ClassDiagramArrow
+DataSource.ASMImplementationParser --|> DataSource.IASMRelationshipParser
+DataSource.ASMInheritanceParser ..> DataSource.IASMRelationshipParser
+DataSource.ASMInheritanceParser ..> Domain.ClassDiagramArrow
+DataSource.ASMInheritanceParser --|> DataSource.IASMRelationshipParser
+DataSource.IASMRelationshipParser --> "*" Domain.ClassDiagramArrow
+Domain.EntityType --> "*" Domain.EntityType
+Domain.Field --> "1" Domain.Visibility
+Domain.Field ..> Domain.Variable
+Domain.Field --|> Domain.Variable
+Domain.Method --> "*" Domain.Variable
+Domain.Method --> "1" Domain.Visibility
+DataSource.ASMSignatureVisitor --> "*" DataSource.TypeData
+DataSource.ASMMethodVisitor ..> DataSource.ASMSignatureVisitor
+@enduml
