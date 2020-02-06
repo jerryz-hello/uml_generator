@@ -5,6 +5,16 @@ A handy UML diagram generator that helps you:
 - Write better code by detecting violations of [Dependency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)
 - Find design patterns by highlighting them in the generated class diagram (feature in progress)
 
+Design patterns used:
+1. Strategy pattern
+2. Factory Method pattern
+3. Abstract Factory pattern (refactoring in progess)
+4. Facade pattern (refactoring in progress)
+5. Visitor pattern
+
+Documentation generator:
+- Javadoc
+
 # Usage
 
 Suppose you are using Eclipse,
