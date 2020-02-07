@@ -24,6 +24,23 @@ import Domain.Project;
 import Domain.Variable;
 import Domain.Visibility;
 
+/**
+ * Recursively parse through a list of classes. 
+ * 
+ * By calling its parse method with a list of classes to be parsed, for example:
+ * <pre>{@code
+ * parse({"java.lang.String", "java.util.ArrayList"})
+ * }</pre> 
+ * 
+ * it will try to recursively discover their super classes, interfaces, and relationships,
+ * and store these information in a Project wrapper class, which could be later sent to a IUMLClassDiagramGenerator
+ * and rendered as a svg file
+ * 
+ * @author Jerry Zheng
+ * @author Joseph Zou	
+ * @see Presentation.IUMLClassDiagramGenerator
+ * @since 1.0
+ */
 public class ASMClassDiagramParser implements IClassDiagramParser {
 
 	private Queue<String> classNames;
@@ -33,7 +50,14 @@ public class ASMClassDiagramParser implements IClassDiagramParser {
 	private ArrayList<Visibility> filters;
 	private Set<String> supportedArrowTypes;
 	private boolean parseExternal;
-
+	
+	/**
+	 * Constructor 
+	 * 
+	 * @param visibility the level of visibility which decides what classes to be stored in the Project wrapper class
+	 * @param supportedArrowTypes a set of supported arrow types, which might differ in different UML generators 
+	 * @param parseExternal if set to true, it will attempt to parse classes that are used by but not belongs to the source code of the project
+	 */
 	public ASMClassDiagramParser(String visibility, Set<String> supportedArrowTypes, boolean parseExternal) {
 		filters = new ArrayList<>(
 				Arrays.asList(Visibility.PRIVATE, Visibility.PROTECTED, Visibility.PUBLIC, Visibility.DEFAULT));
@@ -52,6 +76,15 @@ public class ASMClassDiagramParser implements IClassDiagramParser {
 		}
 	}
 
+	/**
+	 * Recursively discover the super class, interfaces, and relationships of the list of classes
+	 * and store them in a Project wrapper class
+	 * 
+	 * @param args a list of String which contains the fully qualified names of java classes to be parsed
+	 * @return Project 
+	 * 
+	 * @see Project
+	 */
 	@Override
 	public Project parse(String[] args) throws IOException {
 
