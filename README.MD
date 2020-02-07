@@ -5,6 +5,9 @@ A handy UML diagram generator that helps you:
 - Write better code by detecting violations of [Dependency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle)
 - Find design patterns by highlighting them in the generated class diagram (feature in progress)
 
+Architecture pattern:
+Three-tier architecture pattern (i.e., presentation, bussiness logic, and database layer)
+
 Design patterns used:
 1. Strategy pattern
 2. Factory Method pattern
